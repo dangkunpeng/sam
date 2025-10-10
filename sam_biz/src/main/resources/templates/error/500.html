@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>500</title>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+  <link rel="stylesheet" type="text/css" th:href="@{global/bootstrap-3.4.1-dist/css/bootstrap.min.css}"/>
+
+  <script type="text/javascript" th:src="@{global/jquery/jquery-3.7.1.min.js}"></script>
+  <script type="text/javascript" th:src="@{global/bootstrap-3.4.1-dist/js/bootstrap.min.js}"></script>
+</head>
+<body class="page-404-full-page margin-top-100">
+        <div class="row">
+		<div class="col-md-12 page-error">
+			<div class="number font-red"><span class="fa fa-remove-circle"></span></div>
+			<div class="details">
+				<h4 th:text="${errorMsg}"></h4>
+				<h4 th:text="${errorTime}"></h4>
+				<h4 th:text="#{cmn.system.error.title}">系统异常：</h4>
+				<p th:text="#{cmn.system.error.detal_info}">系统发生未知异常，联系中国区管理员或者稍后再试。</p>
+                <!--                      onclick="window.opener=null;window.close()" -->
+                <p th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}"></p>
+                <p><a href="logout" th:href="@{/logout}"
+                      class="btn btn-sm red btn-outline" th:text="#{cmn.system.error.detal.login}">重新登录</a></p>
+			</div>
+		</div>
+	</div>
+
+    </body>
+</html>
