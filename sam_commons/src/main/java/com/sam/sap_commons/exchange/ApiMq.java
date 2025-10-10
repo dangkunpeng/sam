@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiMq {
+public class ApiMq extends ApiBase{
     private String mqType;
     private String mqBody;
     private String bizKey;
     private String timestamp;
-    private String traceId;
+
 }

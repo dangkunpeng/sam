@@ -17,11 +17,11 @@ public class KeyTool {
 
 
     // 计数器补位长度
-    private static final Integer COUNT_LENGTH = 4;
+    private static final Integer COUNT_LENGTH = 6;
 
     /**
      * 生成主键 <hr>
-     * 格式为 feature / yyyyMMddHHmmss + 0001
+     * 格式为 feature / yyyyMMddHHmmss + 00000001
      *
      * @return String
      */
@@ -30,7 +30,7 @@ public class KeyTool {
         StringBuilder result = new StringBuilder();
         // 时间戳
         result.append(id);
-        result.append(SysDefaults.now());
+        result.append(SysDefaults.nowDay());
         // 获取时间戳的使用次数
         Integer counter = KEY_MAP.getOrDefault(result.toString(), 0);
         if (counter == 0) {
