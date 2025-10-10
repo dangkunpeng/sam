@@ -16,6 +16,7 @@ public class MqCommonProducer {
     private RabbitTemplate rabbitTemplate;
 
     public void sendMsg(ApiMq msg) {
+        // 设置消息对象里的traceId
         msg.setTraceId(AjaxUtils.getTraceId());
         log.info("MQ: sending msg {}", msg);
         this.rabbitTemplate.convertAndSend(msg.getMqType(), JsonUtil.toJsonString(msg));

@@ -67,7 +67,6 @@ public class MqMailApi {
                 .mqBody(JsonUtil.toJsonString(apiMail))
                 .timestamp(SysDefaults.now())
                 .build();
-//        apiMq.setTraceId(AjaxUtils.getTraceId());
         this.mqCommonProducer.sendMsg(apiMq);
     }
 
@@ -83,7 +82,7 @@ public class MqMailApi {
             ApiMail apiMail = JsonUtil.toObj(apiMq.getMqBody(), ApiMail.class);
             apiMail.setSentDate(new Date());
             // 发送邮件
-            this.mailClient.sendMail(apiMail);
+//            this.mailClient.sendMail(apiMail);
             // 确认这条消息
             this.mqUtils.basicAck(headers, channel);
         } catch (Exception e) {
