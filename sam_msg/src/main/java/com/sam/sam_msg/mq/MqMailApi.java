@@ -10,6 +10,7 @@ import com.sam.sap_commons.utils.JsonUtil;
 import com.sam.sap_commons.utils.KeyTool;
 import com.sam.sap_commons.utils.SysDefaults;
 import jakarta.annotation.Resource;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
