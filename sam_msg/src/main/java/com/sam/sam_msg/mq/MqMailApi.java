@@ -6,12 +6,14 @@ import com.sam.sam_msg.mq.MqUtils;
 import com.sam.sap_commons.exchange.ApiMail;
 import com.sam.sap_commons.exchange.ApiMq;
 import com.sam.sap_commons.mq.MqCommonProducer;
+import com.sam.sap_commons.utils.AjaxUtils;
 import com.sam.sap_commons.utils.JsonUtil;
 import com.sam.sap_commons.utils.KeyTool;
 import com.sam.sap_commons.utils.SysDefaults;
 import jakarta.annotation.Resource;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Headers;
@@ -64,7 +66,7 @@ public class MqMailApi {
                 .mqType(SysDefaults.MQ_MAIL)
                 .mqBody(JsonUtil.toJsonString(apiMail))
                 .timestamp(SysDefaults.now())
-                .bizKey(KeyTool.newKey("Error"))
+                .traceId(AjaxUtils.getTraceId())
                 .build();
         this.mqCommonProducer.sendMsg(apiMq);
     }
@@ -72,18 +74,23 @@ public class MqMailApi {
     @RabbitListener(id = SysDefaults.MQ_MAIL, queues = SysDefaults.MQ_MAIL)
     @RabbitHandler
     public void processMail(@Payload String msg, @Headers Map<String, Object> headers, Channel channel) throws IOException {
-        log.info("receive mail:{}", msg);
+
         try {
             // 解析消息信息
             ApiMq apiMq = JsonUtil.toObj(msg, ApiMq.class);
+            AjaxUtils.putTraceId(apiMq.getTraceId());
+            log.info("process Mail mail:{}", msg);
             ApiMail apiMail = JsonUtil.toObj(apiMq.getMqBody(), ApiMail.class);
             apiMail.setSentDate(new Date());
             // 发送邮件
-            this.mailClient.sendMail(apiMail);
+//            this.mailClient.sendMail(apiMail);
             // 确认这条消息
             this.mqUtils.basicAck(headers, channel);
         } catch (Exception e) {
             log.error("send mail 代码异常: {}, 原始信息为: {}", e.getMessage(), msg);
+
+        } finally {
+            AjaxUtils.removeTraceId();
         }
     }
 }

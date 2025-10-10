@@ -11,5 +11,7 @@ public class ApiParam<T> {
 
     private String ApiId;
 
+    private String traceId;
+
     private T data;
 }

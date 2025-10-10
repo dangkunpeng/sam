@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class SysDefaults {
+    public static final String TRACE_ID = "traceId";
     public static final String CHAR_SEPARATOR = ";";
     public static final String MQ_MAIN = "mqMain";
     public static final String MQ_MAIL = "mqMail";

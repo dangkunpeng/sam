@@ -14,4 +14,5 @@ public class ApiMq {
     private String mqBody;
     private String bizKey;
     private String timestamp;
+    private String traceId;
 }
