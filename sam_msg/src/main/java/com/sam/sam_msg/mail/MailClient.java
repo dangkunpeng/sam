@@ -23,20 +23,20 @@ public class MailClient {
         log.info("邮件发送{}", JsonUtil.toJsonString(mail));
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-            helper.setSubject(mail.getSubject());
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+            mimeMessageHelper.setSubject(mail.getSubject());
             // 发件人的邮箱
-            helper.setFrom(new InternetAddress("IAP.Robot@aspiro.co", "IAP RPA"));
+            mimeMessageHelper.setFrom(new InternetAddress("IAP.Robot@aspiro.co", "IAP RPA"));
             // 要发给的邮箱
-            helper.setTo(mail.getTo());
+            mimeMessageHelper.setTo(mail.getTo());
             //邮件内容(html渲染 所以要填true)
-            helper.setText(mail.getText(), true);
+            mimeMessageHelper.setText(mail.getText(), true);
             // 发送日期
-            helper.setSentDate(new Date());
+            mimeMessageHelper.setSentDate(new Date());
             // 发送邮件
             this.javaMailSender.send(mimeMessage);
         } catch (Exception e) {
-            log.error("sendMail Exception = {}", e);
+            log.error("sendMail Exception = {}, mail detail ={}", e.getMessage(), JsonUtil.toJsonString(mail));
             throw new Exception("邮件发送失败" + e.getMessage());
         }
     }

@@ -78,11 +78,10 @@ public class MqMailApi {
             apiMail.setSentDate(new Date());
             // 发送邮件
             this.mailClient.sendMail(apiMail);
-        } catch (Exception e) {
-            log.error("send mail 代码异常: {}, 原始信息为: {}", e.getMessage(), msg);
-        } finally {
             // 确认这条消息
             this.mqApi.basicAck(headers, channel);
+        } catch (Exception e) {
+            log.error("send mail 代码异常: {}, 原始信息为: {}", e.getMessage(), msg);
         }
     }
 }
