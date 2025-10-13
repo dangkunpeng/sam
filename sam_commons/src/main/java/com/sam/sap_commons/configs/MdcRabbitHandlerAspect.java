@@ -17,11 +17,11 @@ public class MdcRabbitHandlerAspect {
     @Around("@annotation(rabbitHandler)")
     public Object aroundRabbitHandler(ProceedingJoinPoint joinPoint, RabbitHandler rabbitHandler) throws Throwable {
         // 切面前置逻辑
-        log.info("RabbitHandler 方法被调用: {}", joinPoint.getSignature());
+//        log.info("RabbitHandler 方法被调用: {}", joinPoint.getSignature());
         // 执行业务方法
         Object result = joinPoint.proceed();
         // 切面后置逻辑
-        log.info("RabbitHandler 方法执行完毕");
+//        log.info("RabbitHandler 方法执行完毕");
         AjaxUtils.removeTraceId();
         return result;
     }
