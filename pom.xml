@@ -13,6 +13,7 @@
         <module>sam_commons</module>
         <module>sam_biz</module>
         <module>sam_msg</module>
+        <module>sam-redis-spring-boot-starter</module>
     </modules>
 	<properties>
 		<java.version>17</java.version>
