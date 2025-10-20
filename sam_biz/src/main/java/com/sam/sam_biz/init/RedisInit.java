@@ -18,9 +18,10 @@ public class RedisInit implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         for (int i = 0; i < 100; i++) {
-            String key = KeyTool.newKey("redisInitTestKey") + i % 5;
-            redisClient.set(key, KeyTool.newKey("val"));
-            log.info("RedisInit set key={}, val={}", key, redisClient.get(key));
+//            String key = KeyTool.newKey("redisInitTestKey") + i % 5;
+//            redisClient.set(key, KeyTool.newKey("val"));
+//            log.info("RedisInit set key={}, val={}", key, redisClient.get(key));
+            log.info(KeyTool.newKey("val"));
         }
     }
 }
