@@ -9,7 +9,10 @@
         <version>3.5.6</version>
         <relativePath/>
     </parent>
-
+    <groupId>com.sam</groupId>
+    <packaging>jar</packaging>
+    <name>sam_redis</name>
+    <version>0.0.1-SNAPSHOT</version>
     <artifactId>sam-redis-spring-boot-starter</artifactId>
 
     <properties>
