@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -20,25 +21,15 @@ public class RedisInit implements ApplicationRunner {
     @Resource
     private RedisKeyTool redisKeyTool;
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        redisTemplate.keys("*").forEach(key -> {
-            redisClient.delete(key);
-            log.info("RedisInit deleted key={}", key);
-        });
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100; i++) {
             String key = redisKeyTool.newKey("key");
             String val = redisKeyTool.newKey("val");
-            redisClient.set(key, val);
-            log.info("RedisInit set key={}, val={}", key, redisClient.get(key));
+            stringRedisTemplate.opsForValue().set(key,val);
+            log.info("RedisInit key={}, val={}", key, stringRedisTemplate.opsForValue().get(key));
         }
-//        for (int i = 0; i < 10; i++) {
-//            String key = KeyTool.newKey("key") + i % 5;
-//            redisClient.set(key, KeyTool.newKey("val"));
-//            log.info("RedisInit set key={}, val={}", key, redisClient.get(key));
-//            log.info(KeyTool.newKey("val"));
-//        }
     }
 }
