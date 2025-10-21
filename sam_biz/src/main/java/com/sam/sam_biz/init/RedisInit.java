@@ -1,13 +1,11 @@
 package com.sam.sam_biz.init;
 
-import com.sam.sap_commons.redis.RedisClient;
 import com.sam.sap_commons.redis.RedisKeyTool;
-import com.sam.sap_commons.utils.KeyTool;
+import com.sam.sap_commons.redis.RedisMsgQueue;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -16,20 +14,26 @@ import org.springframework.stereotype.Component;
 public class RedisInit implements ApplicationRunner {
 
     @Resource
-    private RedisClient redisClient;
-
-    @Resource
     private RedisKeyTool redisKeyTool;
+    @Resource
+    private RedisMsgQueue redisMsgQueue;
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             String key = redisKeyTool.newKey("key");
             String val = redisKeyTool.newKey("val");
-            stringRedisTemplate.opsForValue().set(key,val);
+            stringRedisTemplate.opsForValue().set(key, val);
             log.info("RedisInit key={}, val={}", key, stringRedisTemplate.opsForValue().get(key));
+        }
+        String key = redisKeyTool.newKey("mqKey");
+        for (int i = 0; i < 10; i++) {
+
+            String val = redisKeyTool.newKey("mqVal");
+            redisMsgQueue.leftPush(key, val);
+            log.info("mq key={}, val={}", key, redisMsgQueue.rightPop(key));
         }
     }
 }
