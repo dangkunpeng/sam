@@ -6,18 +6,15 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 
+import static com.sam.sap_commons.utils.SysDefaults.COUNT_LENGTH;
+import static com.sam.sap_commons.utils.SysDefaults.PAD_CHAR;
+
 
 @Slf4j
 public class KeyTool {
 
     // 计数器
     private static final Map<String, Integer> KEY_MAP = Maps.newConcurrentMap();
-    // 补位字符
-    private static final String PAD_CHAR = "0";
-
-
-    // 计数器补位长度
-    private static final Integer COUNT_LENGTH = 6;
 
     /**
      * 生成主键 <hr>

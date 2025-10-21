@@ -1,10 +1,13 @@
 // redis-spring-boot-starter/src/main/java/com/example/redisstarter/RedisClient.java
 package com.sam.sap_commons.redis;
 
+import com.sam.sap_commons.utils.SysDefaults;
 import jakarta.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -49,4 +52,5 @@ public class RedisClient {
     public Object rightPop(String key) {
         return redisTemplate.opsForList().rightPop(key);
     }
+
 }

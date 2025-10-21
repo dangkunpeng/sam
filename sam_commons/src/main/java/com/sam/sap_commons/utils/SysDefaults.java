@@ -11,6 +11,13 @@ public class SysDefaults {
     public static final String SYS_DEFAULT_TIME_PATTERN = "yyyyMMddHHmmssSSS";
     public static final String SYS_DEFAULT_DAY_PATTERN = "yyyyMMdd";
 
+    // 补位字符
+    public static final String PAD_CHAR = "0";
+
+
+    // 计数器补位长度
+    public static final Integer COUNT_LENGTH = 6;
+
     public static String now() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(SysDefaults.SYS_DEFAULT_TIME_PATTERN));
     }
