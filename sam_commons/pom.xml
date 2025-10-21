@@ -18,6 +18,7 @@
     <description>commons bean and tools</description>
 
     <properties>
+        <logback.version>1.5.19</logback.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <tomcat.version>11.0.10</tomcat.version>
         <spring-framework.version>6.2.10</spring-framework.version>
@@ -43,6 +44,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>3.5.6</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>

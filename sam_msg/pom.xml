@@ -17,6 +17,7 @@
     <description>msg center</description>
 
     <properties>
+        <logback.version>1.5.19</logback.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <tomcat.version>11.0.10</tomcat.version>
         <spring-framework.version>6.2.10</spring-framework.version>
