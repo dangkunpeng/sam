@@ -14,6 +14,7 @@
     <packaging>jar</packaging>
     <name>sam_biz</name>
     <version>0.0.1-SNAPSHOT</version>
+    <description>业务系统</description>
     <properties>
         <logback.version>1.5.19</logback.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>

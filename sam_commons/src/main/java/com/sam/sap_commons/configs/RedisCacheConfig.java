@@ -17,6 +17,7 @@ public class RedisCacheConfig {
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration() {
         return RedisCacheConfiguration.defaultCacheConfig()
+                .prefixCacheNameWith("sam-") // 缓存前缀
             .entryTtl(Duration.ofMinutes(10))  // 默认TTL
             .disableCachingNullValues()        // 不缓存null值
             .serializeKeysWith(
