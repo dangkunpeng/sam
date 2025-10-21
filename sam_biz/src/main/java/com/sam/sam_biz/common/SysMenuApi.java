@@ -5,7 +5,6 @@ import com.google.common.collect.Maps;
 import com.sam.sam_biz.common.bean.SysMenu;
 import com.sam.sam_biz.common.bean.SysMenuBean;
 import com.sam.sam_biz.common.service.SysMenuService;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
