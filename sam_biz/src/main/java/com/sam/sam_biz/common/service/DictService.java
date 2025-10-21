@@ -3,7 +3,6 @@ package com.sam.sam_biz.common.service;
 import com.google.common.collect.Lists;
 import com.sam.sam_biz.common.bean.DictBean;
 import com.sam.sam_biz.common.bean.DictQueryBean;
-import com.sam.sap_commons.configs.CaffineConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
