@@ -1,5 +1,6 @@
 package com.sam.sap_commons.configs;
 
+import com.sam.sap_commons.aspect.MdcLoggingFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

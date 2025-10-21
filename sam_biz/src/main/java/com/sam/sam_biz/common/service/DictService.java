@@ -3,13 +3,14 @@ package com.sam.sam_biz.common.service;
 import com.google.common.collect.Lists;
 import com.sam.sam_biz.common.bean.DictBean;
 import com.sam.sam_biz.common.bean.DictQueryBean;
-import com.sam.sam_parents.configs.CaffineConfig;
-import jakarta.annotation.Resource;
+import com.sam.sap_commons.configs.CaffineConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.sam.sap_commons.utils.SysDefaults.CACHE_NAME;
 
 /**
  * 描述： 字典表管理service
@@ -34,7 +35,7 @@ public class DictService {
      * @param language
      * @return
      */
-    @Cacheable(value = CaffineConfig.CACHE_NAME, key = "'mstDict-typeKey' + #typeKey + '-language' + #language+'-deleteFlag'+ #deleteFlag", unless = "#result==null")
+    @Cacheable(value = CACHE_NAME, key = "'mstDict-typeKey' + #typeKey + '-language' + #language+'-deleteFlag'+ #deleteFlag", unless = "#result==null")
     public List<DictBean> getMstDict(String typeKey, String language, String deleteFlag) {
 
         List<DictBean> result = Lists.newArrayList();

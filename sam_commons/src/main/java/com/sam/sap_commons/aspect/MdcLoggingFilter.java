@@ -1,4 +1,4 @@
-package com.sam.sap_commons.configs;
+package com.sam.sap_commons.aspect;
 
 import com.sam.sap_commons.utils.AjaxUtils;
 import com.sam.sap_commons.utils.ExceptionUtils;

@@ -1,6 +1,6 @@
 package com.sam.sam_biz.demo;
 
-import com.sam.sam_parents.exceptions.ApiException;
+import com.sam.sap_commons.exceptions.ApiException;
 import com.sam.sap_commons.utils.KeyTool;
 import com.sam.sap_commons.exchange.ApiMsg;
 import lombok.extern.slf4j.Slf4j;

@@ -1,19 +1,10 @@
 package com.sam.sap_commons.utils;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.List;
-import java.util.TimeZone;
 
 
 public class JsonUtil {
@@ -55,17 +46,4 @@ public class JsonUtil {
         }
     }
 
-    static {
-        objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-        objectMapper.configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, Boolean.TRUE);
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-
-        objectMapper.setTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
-        objectMapper.setDateFormat(new SimpleDateFormat(SysDefaults.SYS_DEFAULT_TIME_PATTERN));
-
-        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.registerModule(new JavaTimeModule());
-    }
 }

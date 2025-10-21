@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
 	<description>Hello World</description>
     <modules>
-        <module>sam_parents</module>
         <module>sam_commons</module>
         <module>sam_biz</module>
         <module>sam_msg</module>

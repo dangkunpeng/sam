@@ -10,7 +10,8 @@ public class SysDefaults {
     public static final String MQ_MAIL = "mqMail";
     public static final String SYS_DEFAULT_TIME_PATTERN = "yyyyMMddHHmmssSSS";
     public static final String SYS_DEFAULT_DAY_PATTERN = "yyyyMMdd";
-
+    public static final String CACHE_NAME = "APP";
+    public static final String CACHE_TEMP_NAME = "APP_TEMP";
     // 补位字符
     public static final String PAD_CHAR = "0";
 

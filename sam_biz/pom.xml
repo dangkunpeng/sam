@@ -73,7 +73,7 @@
                             <classpathPrefix>lib/</classpathPrefix>
                             <!-- 打包时不使用时间戳 -->
                             <useUniqueVersions>false</useUniqueVersions>
-                            <mainClass>com.sam.App</mainClass>
+                            <mainClass>com.sam.bizApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
