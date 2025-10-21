@@ -1,0 +1,23 @@
+package com.sam.sam_biz.init;
+
+import com.sam.sap_commons.redis.RedisKeyTool;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import static com.sam.sap_commons.utils.SysDefaults.CACHE_NAME;
+
+@Slf4j
+@Service
+public class CacheDemo {
+
+    @Resource
+    RedisKeyTool redisKeyTool;
+
+    @Cacheable(value = CACHE_NAME, key = "'helloCache'+#key", unless = "#result==null")
+    public String getCacheKey(String key) {
+        log.info("CacheDemo getCacheKey key={}",key);
+        return redisKeyTool.newKey(key);
+    }
+}

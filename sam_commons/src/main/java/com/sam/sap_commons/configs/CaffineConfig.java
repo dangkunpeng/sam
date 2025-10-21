@@ -16,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 import static com.sam.sap_commons.utils.SysDefaults.CACHE_NAME;
 import static com.sam.sap_commons.utils.SysDefaults.CACHE_TEMP_NAME;
 
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class CaffineConfig {
 
 
