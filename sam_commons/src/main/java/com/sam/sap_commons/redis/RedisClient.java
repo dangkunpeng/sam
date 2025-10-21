@@ -1,17 +1,17 @@
 // redis-spring-boot-starter/src/main/java/com/example/redisstarter/RedisClient.java
-package com.sam.sam_redis.utils;
+package com.sam.sap_commons.redis;
 
+import jakarta.annotation.Resource;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class RedisClient {
+    @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
-    public RedisClient(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
 
     public void set(String key, Object value) {
         redisTemplate.opsForValue().set(key, value);

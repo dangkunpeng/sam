@@ -3,7 +3,7 @@ package com.sam.sam_redis.configs;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "spring.redis")
+//@ConfigurationProperties(prefix = "spring.redis")
 public class RedisProperties {
     private String host = "localhost";
     private int port = 6379;
