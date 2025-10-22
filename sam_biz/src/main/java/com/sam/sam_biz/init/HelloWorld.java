@@ -26,7 +26,7 @@ public class HelloWorld implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         log.info("================ {} =================", helloworld);
         redisCacheHelper.set("helloworld", helloworld, 60L, TimeUnit.MINUTES);
-        log.info("CacheDemo={}",cacheDemo.getCacheKey("testkey"));
-        log.info("CacheDemo={}",cacheDemo.getCacheKey("testkey"));
+        log.info("CacheDemo={}",cacheDemo.getCacheKey("helloworld"));
+        log.info("CacheDemo={}",cacheDemo.getCacheKey("helloworld"));
     }
 }
