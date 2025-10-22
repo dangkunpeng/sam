@@ -1,5 +1,6 @@
 package com.sam.sap_commons.configs;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,9 @@ import java.time.Duration;
 @Configuration
 @EnableCaching
 public class RedisCacheConfig {
+    @Value("${server.name}")
+    private String appName;
+
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
 
@@ -27,7 +31,7 @@ public class RedisCacheConfig {
 
     public RedisCacheConfiguration redisCacheConfiguration() {
         return RedisCacheConfiguration.defaultCacheConfig()
-                .prefixCacheNameWith("sam-app-cache-") // 缓存前缀
+                .prefixCacheNameWith("Cache-of-" + appName + "-") // 缓存前缀
                 .entryTtl(Duration.ofMinutes(30))  // 默认TTL
                 .disableCachingNullValues()        // 不缓存null值
                 .serializeKeysWith(
