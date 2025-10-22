@@ -26,7 +26,7 @@ public class MailClient {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.setSubject(mail.getSubject());
             // 发件人的邮箱
-            mimeMessageHelper.setFrom(new InternetAddress("IAP.Robot@aspiro.co", "IAP RPA"));
+            mimeMessageHelper.setFrom(new InternetAddress("hello@world.com", "hwllo world"));
             // 要发给的邮箱
             mimeMessageHelper.setTo(mail.getTo());
             //邮件内容(html渲染 所以要填true)
