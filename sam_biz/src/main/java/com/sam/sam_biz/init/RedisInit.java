@@ -27,14 +27,14 @@ public class RedisInit implements ApplicationRunner {
             String key = redisKeyTool.newKey("key");
             String val = redisKeyTool.newKey("val");
             stringRedisTemplate.opsForValue().set(key, val);
-//            log.info("RedisInit key={}, val={}", key, stringRedisTemplate.opsForValue().get(key));
+            log.info("RedisInit key={}, val={}", key, stringRedisTemplate.opsForValue().get(key));
         }
         String key = redisKeyTool.newKey("mqKey");
         for (int i = 0; i < 10; i++) {
 
             String val = redisKeyTool.newKey("mqVal");
             redisMsgQueue.leftPush(key, val);
-//            log.info("mq key={}, val={}", key, redisMsgQueue.rightPop(key));
+            log.info("mq key={}, val={}", key, redisMsgQueue.rightPop(key));
         }
     }
 }
