@@ -15,7 +15,7 @@ public class CacheDemo {
     @Resource
     RedisKeyTool redisKeyTool;
 
-    @Cacheable(value = CACHE_NAME, key = "'helloCache'+#key", unless = "#result==null")
+    @Cacheable(value = CACHE_NAME, key = "'helloCache-'+#key", unless = "#result==null")
     public String getCacheKey(String key) {
         log.info("No cache and  gen new key={}",key);
         return redisKeyTool.newKey(key);
