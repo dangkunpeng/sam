@@ -14,22 +14,23 @@ public class RedisCacheHelper {
     private StringRedisTemplate stringRedisTemplate;
 
     // 设置缓存（带过期时间）
+    public <T> void set(String key, T value) {
+        stringRedisTemplate.opsForValue().set(key, JsonUtil.toJsonString(value));
+    }
+    // 设置缓存（带过期时间）
     public <T> void set(String key, T value, long time, TimeUnit unit) {
         stringRedisTemplate.opsForValue().set(key, JsonUtil.toJsonString(value), time, unit);
     }
 
     // 获取缓存（解决缓存穿透：缓存空值）
-    public <T> T get(String key, Class<T> type, long nullCacheTime, TimeUnit nullCacheUnit) {
+    public <T> T get(String key, Class<T> type) {
         String json = stringRedisTemplate.opsForValue().get(key);
-        if (StringUtils.isNotBlank(json)) {
-            return JsonUtil.toObj(json, type);
-        }
-        // 判断是否为缓存的空值（防止缓存穿透）
-        if (json != null) { 
+        if (StringUtils.isBlank(json)) {
+            // 判断是否为缓存的空值（防止缓存穿透）
+            // 缓存不存在，返回null，由调用方决定是否从数据源加载
             return null;
         }
-        // 缓存不存在，返回null，由调用方决定是否从数据源加载
-        return null;
+        return JsonUtil.toObj(json, type);
     }
 
     // 删除缓存
