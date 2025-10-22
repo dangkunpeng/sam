@@ -1,4 +1,4 @@
-package com.sam.sam_biz.init;
+package com.sam.sam_biz.demo;
 
 import com.sam.sap_commons.redis.RedisKeyTool;
 import jakarta.annotation.Resource;

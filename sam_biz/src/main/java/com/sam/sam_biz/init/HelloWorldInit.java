@@ -1,5 +1,6 @@
 package com.sam.sam_biz.init;
 
+import com.sam.sam_biz.demo.CacheDemo;
 import com.sam.sap_commons.utils.RedisCacheHelper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Order(999)
 @Slf4j
 @Component
-public class HelloWorld implements ApplicationRunner {
+public class HelloWorldInit implements ApplicationRunner {
     @Value("${sam.helloworld}")
     private String helloworld;
 
