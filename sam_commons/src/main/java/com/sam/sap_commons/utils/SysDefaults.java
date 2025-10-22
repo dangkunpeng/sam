@@ -8,7 +8,7 @@ public class SysDefaults {
     public static final String CHAR_SEPARATOR = ";";
     public static final String MQ_MAIN = "mqMain";
     public static final String MQ_MAIL = "mqMail";
-    public static final String SYS_DEFAULT_TIME_PATTERN = "yyyyMMddHHmmssSSS";
+    public static final String SYS_DEFAULT_DATETIME_PATTERN = "yyyyMMddHHmmssSSS";
     public static final String SYS_DEFAULT_DAY_PATTERN = "yyyyMMdd";
     public static final String CACHE_NAME = "APP";
     public static final String CACHE_TEMP_NAME = "APP_TEMP";
@@ -20,9 +20,13 @@ public class SysDefaults {
     public static final Integer COUNT_LENGTH = 6;
 
     public static String now() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(SysDefaults.SYS_DEFAULT_TIME_PATTERN));
+        return minusDays(0, SysDefaults.SYS_DEFAULT_DATETIME_PATTERN);
     }
     public static String nowDay() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(SysDefaults.SYS_DEFAULT_DAY_PATTERN));
+        return minusDays(0, SysDefaults.SYS_DEFAULT_DAY_PATTERN);
+    }
+
+    public static String minusDays(long days, String datePattern) {
+        return LocalDateTime.now().minusDays(days).format(DateTimeFormatter.ofPattern(datePattern));
     }
 }

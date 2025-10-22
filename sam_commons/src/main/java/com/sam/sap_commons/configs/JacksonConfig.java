@@ -36,7 +36,7 @@ public class JacksonConfig {
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
         objectMapper.setTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
-        objectMapper.setDateFormat(new SimpleDateFormat(SysDefaults.SYS_DEFAULT_TIME_PATTERN));
+        objectMapper.setDateFormat(new SimpleDateFormat(SysDefaults.SYS_DEFAULT_DATETIME_PATTERN));
 
         objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
