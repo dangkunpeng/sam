@@ -15,8 +15,9 @@ public class RedisCacheHelper {
 
     // 设置缓存（带过期时间）
     public <T> void set(String key, T value) {
-        stringRedisTemplate.opsForValue().set(key, JsonUtil.toJsonString(value));
+        set(key, value, 12, TimeUnit.HOURS);
     }
+
     // 设置缓存（带过期时间）
     public <T> void set(String key, T value, long time, TimeUnit unit) {
         stringRedisTemplate.opsForValue().set(key, JsonUtil.toJsonString(value), time, unit);
