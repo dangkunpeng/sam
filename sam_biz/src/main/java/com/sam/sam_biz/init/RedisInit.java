@@ -35,13 +35,13 @@ public class RedisInit implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // 查询key
-        this.deleteByPattern(FmtUtils.fmtMsg(KEY_PATTERN, SysDefaults.minusDays(1, SYS_DEFAULT_DAY_PATTERN)));
+        this.deleteByPattern(FmtUtils.fmtMsg(KEY_PATTERN, SysDefaults.minusDays(0, SYS_DEFAULT_DAY_PATTERN)));
         log.info("================ {} =================", "helloworld");
         for (int i = 0; i < 10; i++) {
             String key = redisKeyTool.newKey("key");
             String val = redisKeyTool.newKey("val");
-            stringRedisTemplate.opsForValue().set(key, val);
-            log.info("RedisInit key={}, val={}", key, stringRedisTemplate.opsForValue().get(key));
+//            stringRedisTemplate.opsForValue().set(key, val);
+            log.info("RedisInit key={}, val={}", key, val);
         }
         String key = redisKeyTool.newKey("mqKey");
         for (int i = 0; i < 10; i++) {
