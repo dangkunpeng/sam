@@ -20,7 +20,7 @@ public class TaskCleanCacheKey {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void run() {
         // 查询key
         String key = FmtUtils.fmtMsg(KEY_PATTERN, SysDefaults.minusDays(1, SYS_DEFAULT_DAY_PATTERN));
