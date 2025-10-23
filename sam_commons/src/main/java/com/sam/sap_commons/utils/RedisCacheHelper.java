@@ -1,6 +1,5 @@
 package com.sam.sap_commons.utils;
 
-import com.rabbitmq.tools.json.JSONUtil;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
