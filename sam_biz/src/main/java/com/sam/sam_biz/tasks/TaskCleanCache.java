@@ -7,12 +7,11 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StopWatch;
 
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static com.sam.sap_commons.utils.SysDefaults.SYS_DEFAULT_DAY_PATTERN;
 
@@ -24,18 +23,18 @@ public class TaskCleanCache {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-    @Resource
-    private RedisCacheHelper redisCacheHelper;
 
+    @Async
     @Scheduled(cron = "0/5 * * * * ?")
     public void run() {
-        this.redisCacheHelper.leftPush(KEY_TASK, redisCacheHelper.newKey(KEY_TASK));
+        RedisCacheHelper.leftPush(KEY_TASK, RedisCacheHelper.newKey(KEY_TASK));
+        log.info("task {} started, size = {}", Thread.currentThread().getName(), stringRedisTemplate.opsForList().size(KEY_TASK));
+
         try {
             Thread.sleep(16000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        this.redisCacheHelper.rightPop(KEY_TASK);
         // 查询key
         String key = FmtUtils.fmtMsg(KEY_PATTERN, SysDefaults.minusDays(1, SYS_DEFAULT_DAY_PATTERN));
         this.deleteByPattern(key);
@@ -43,18 +42,12 @@ public class TaskCleanCache {
 
 
     public void deleteByPattern(String pattern) {
-        StopWatch stopWatch = new StopWatch("deleteByPattern - " + pattern);
-        stopWatch.start("find keys");
+        RedisCacheHelper.rightPop(KEY_TASK);
+        log.info("task {} done, size = {}", Thread.currentThread().getName(), stringRedisTemplate.opsForList().size(KEY_TASK));
         Set<String> keys = this.stringRedisTemplate.keys(pattern);
         if (CollectionUtils.isEmpty(keys)) {
-            stopWatch.stop();
-            log.info(stopWatch.prettyPrint(TimeUnit.MILLISECONDS));
             return;
         }
-        stopWatch.stop();
-        stopWatch.start(FmtUtils.fmtMsg("delete {} keys", keys.size()));
         this.stringRedisTemplate.delete(keys);
-        stopWatch.stop();
-        log.info(stopWatch.prettyPrint(TimeUnit.MILLISECONDS));
     }
 }

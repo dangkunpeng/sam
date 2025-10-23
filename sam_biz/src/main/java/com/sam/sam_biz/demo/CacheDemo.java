@@ -12,12 +12,9 @@ import static com.sam.sap_commons.utils.SysDefaults.CACHE_NAME;
 @Service
 public class CacheDemo {
 
-    @Resource
-    private RedisCacheHelper redisCacheHelper;
-
     @Cacheable(value = CACHE_NAME, key = "'helloCache-'+#key", unless = "#result==null")
     public String getCacheKey(String key) {
         log.info("No cache and  gen new key={}",key);
-        return redisCacheHelper.newKey(key);
+        return RedisCacheHelper.newKey(key);
     }
 }

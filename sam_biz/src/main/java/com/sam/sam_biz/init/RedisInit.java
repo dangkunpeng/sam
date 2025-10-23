@@ -14,24 +14,21 @@ import org.springframework.stereotype.Component;
 public class RedisInit implements ApplicationRunner {
 
 
-    @Resource
-    private RedisCacheHelper redisCacheHelper;
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
         log.info("================ {} =================", "helloworld");
         for (int i = 0; i < 10; i++) {
-            String key = redisCacheHelper.newKey("key");
-            String val = redisCacheHelper.newKey("val");
+            String key = RedisCacheHelper.newKey("key");
+            String val = RedisCacheHelper.newKey("val");
             log.info("RedisInit key={}, val={}", key, val);
         }
-        String key = redisCacheHelper.newKey("mqKey");
+        String key = RedisCacheHelper.newKey("mqKey");
         for (int i = 0; i < 10; i++) {
 
-            String val = redisCacheHelper.newKey("mqVal");
-            redisCacheHelper.leftPush(key, val);
-            log.info("mq key={}, val={}", key, redisCacheHelper.rightPop(key));
+            String val = RedisCacheHelper.newKey("mqVal");
+            RedisCacheHelper.leftPush(key, val);
+            log.info("mq key={}, val={}", key, RedisCacheHelper.rightPop(key));
         }
     }
 

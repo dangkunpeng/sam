@@ -2,18 +2,14 @@ package com.sam.sam_msg.mq;
 
 import com.rabbitmq.client.Channel;
 import com.sam.sam_msg.mail.MailClient;
-import com.sam.sam_msg.mq.MqUtils;
 import com.sam.sap_commons.exchange.ApiMail;
 import com.sam.sap_commons.exchange.ApiMq;
 import com.sam.sap_commons.mq.MqCommonProducer;
 import com.sam.sap_commons.utils.AjaxUtils;
 import com.sam.sap_commons.utils.JsonUtil;
-import com.sam.sap_commons.utils.KeyTool;
 import com.sam.sap_commons.utils.SysDefaults;
 import jakarta.annotation.Resource;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Headers;

@@ -2,7 +2,8 @@ package com.sam.sam_biz.demo;
 
 import com.sam.sap_commons.exceptions.ApiException;
 import com.sam.sap_commons.exchange.ApiMsg;
-import com.sam.sap_commons.utils.KeyTool;
+import com.sam.sap_commons.redis.RedisCacheHelper;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,6 @@ public class DemoController {
     public ApiMsg<?> getWaitingCreatingPOSOListS4(@PathVariable String apiParam) throws ApiException {
         log.error("log {} {}", "hello", apiParam);
         log.error("log {} {}", "World", apiParam);
-        return ApiMsg.success(KeyTool.newKey("log"));
+        return ApiMsg.success(RedisCacheHelper.newKey("log"));
     }
 }

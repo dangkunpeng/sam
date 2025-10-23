@@ -2,31 +2,32 @@ package com.sam.sap_commons.redis;
 
 import com.sam.sap_commons.utils.JsonUtil;
 import com.sam.sap_commons.utils.SysDefaults;
-import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
 import static com.sam.sap_commons.utils.SysDefaults.COUNT_LENGTH;
 import static com.sam.sap_commons.utils.SysDefaults.PAD_CHAR;
 
-@Component
+@Service
 public class RedisCacheHelper {
-    @Resource
-    private RedisTemplate<String, Integer> redisTemplate;
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
+    private static StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    public void setStringRedisTemplate(StringRedisTemplate stringRedisTemplate) {
+        RedisCacheHelper.stringRedisTemplate = stringRedisTemplate;
+    }
 
     // 设置缓存（带过期时间）
-    public <T> void set(String key, T value) {
+    public static <T> void set(String key, T value) {
         set(key, value, 12, TimeUnit.HOURS);
     }
 
     // 设置缓存（带过期时间）
-    public <T> void set(String key, T value, long time, TimeUnit unit) {
+    public static <T> void set(String key, T value, long time, TimeUnit unit) {
         stringRedisTemplate.opsForValue().set(key, JsonUtil.toJsonString(value), time, unit);
     }
 
@@ -42,12 +43,12 @@ public class RedisCacheHelper {
     }
 
     // 删除缓存
-    public Boolean delete(String key) {
+    public static Boolean delete(String key) {
         return stringRedisTemplate.delete(key);
     }
 
     // 判断缓存是否存在
-    public Boolean hasKey(String key) {
+    public static Boolean hasKey(String key) {
         return stringRedisTemplate.hasKey(key);
     }
 
@@ -57,23 +58,22 @@ public class RedisCacheHelper {
      * @param key
      * @param value
      */
-    public void leftPush(String key, String value) {
+    public static void leftPush(String key, String value) {
         stringRedisTemplate.opsForList().leftPush(key, value);
     }
 
-    public Object rightPop(String key) {
+    public static Object rightPop(String key) {
         return stringRedisTemplate.opsForList().rightPop(key);
     }
 
-
-    public String newKey(String id) {
+    public static String newKey(String id) {
         // 这里可以调用 KeyTool 来生成主键
         StringBuilder result = new StringBuilder();
         // 时间戳
         result.append(id);
         result.append(SysDefaults.nowDay());
         // 获取时间戳的使用次数
-        Long counter = redisTemplate.opsForValue().increment(result.toString());
+        Long counter = stringRedisTemplate.opsForValue().increment(result.toString());
         // 拼接上序号
         result.append(StringUtils.leftPad(String.valueOf(counter), COUNT_LENGTH, PAD_CHAR));
         return result.toString();

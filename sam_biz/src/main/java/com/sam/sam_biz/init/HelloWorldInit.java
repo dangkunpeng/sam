@@ -21,12 +21,10 @@ public class HelloWorldInit implements ApplicationRunner {
 
     @Resource
     private CacheDemo cacheDemo;
-    @Resource
-    private RedisCacheHelper redisCacheHelper;
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("================ {} =================", helloworld);
-        redisCacheHelper.set("helloworld", helloworld, 60L, TimeUnit.MINUTES);
+        RedisCacheHelper.set("helloworld", helloworld, 60L, TimeUnit.MINUTES);
         log.info("CacheDemo={}",cacheDemo.getCacheKey("helloworld"));
         log.info("CacheDemo={}",cacheDemo.getCacheKey("helloworld"));
     }
