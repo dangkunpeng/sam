@@ -1,14 +1,22 @@
-package com.sam.sap_commons.utils;
+package com.sam.sap_commons.redis;
 
+import com.sam.sap_commons.utils.JsonUtil;
+import com.sam.sap_commons.utils.SysDefaults;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.sam.sap_commons.utils.SysDefaults.COUNT_LENGTH;
+import static com.sam.sap_commons.utils.SysDefaults.PAD_CHAR;
+
 @Component
 public class RedisCacheHelper {
+    @Resource
+    private RedisTemplate<String, Integer> redisTemplate;
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
@@ -41,5 +49,33 @@ public class RedisCacheHelper {
     // 判断缓存是否存在
     public Boolean hasKey(String key) {
         return stringRedisTemplate.hasKey(key);
+    }
+
+    /**
+     * leftPush 和 rightPop 可以实现一个简单的队列
+     *
+     * @param key
+     * @param value
+     */
+    public void leftPush(String key, String value) {
+        stringRedisTemplate.opsForList().leftPush(key, value);
+    }
+
+    public Object rightPop(String key) {
+        return stringRedisTemplate.opsForList().rightPop(key);
+    }
+
+
+    public String newKey(String id) {
+        // 这里可以调用 KeyTool 来生成主键
+        StringBuilder result = new StringBuilder();
+        // 时间戳
+        result.append(id);
+        result.append(SysDefaults.nowDay());
+        // 获取时间戳的使用次数
+        Long counter = redisTemplate.opsForValue().increment(result.toString());
+        // 拼接上序号
+        result.append(StringUtils.leftPad(String.valueOf(counter), COUNT_LENGTH, PAD_CHAR));
+        return result.toString();
     }
 }

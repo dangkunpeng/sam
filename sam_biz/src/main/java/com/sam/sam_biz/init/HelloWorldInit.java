@@ -1,7 +1,7 @@
 package com.sam.sam_biz.init;
 
 import com.sam.sam_biz.demo.CacheDemo;
-import com.sam.sap_commons.utils.RedisCacheHelper;
+import com.sam.sap_commons.redis.RedisCacheHelper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

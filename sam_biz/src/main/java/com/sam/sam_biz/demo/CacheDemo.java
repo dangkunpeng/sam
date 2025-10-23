@@ -1,6 +1,6 @@
 package com.sam.sam_biz.demo;
 
-import com.sam.sap_commons.redis.RedisKeyTool;
+import com.sam.sap_commons.redis.RedisCacheHelper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,11 +13,11 @@ import static com.sam.sap_commons.utils.SysDefaults.CACHE_NAME;
 public class CacheDemo {
 
     @Resource
-    RedisKeyTool redisKeyTool;
+    private RedisCacheHelper redisCacheHelper;
 
     @Cacheable(value = CACHE_NAME, key = "'helloCache-'+#key", unless = "#result==null")
     public String getCacheKey(String key) {
         log.info("No cache and  gen new key={}",key);
-        return redisKeyTool.newKey(key);
+        return redisCacheHelper.newKey(key);
     }
 }

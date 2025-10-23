@@ -1,5 +1,6 @@
 package com.sam.sam_biz.tasks;
 
+import com.sam.sap_commons.redis.RedisCacheHelper;
 import com.sam.sap_commons.utils.FmtUtils;
 import com.sam.sap_commons.utils.SysDefaults;
 import jakarta.annotation.Resource;
@@ -17,13 +18,24 @@ import static com.sam.sap_commons.utils.SysDefaults.SYS_DEFAULT_DAY_PATTERN;
 
 @Slf4j
 @Service
-public class CleanCache {
+public class TaskCleanCache {
     private static final String KEY_PATTERN = "*{}*";
+    private static final String KEY_TASK = "TaskCleanCache";
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-    @Scheduled(cron = "0 * * * * ?")
+    @Resource
+    private RedisCacheHelper redisCacheHelper;
+
+    @Scheduled(cron = "0/5 * * * * ?")
     public void run() {
+        this.redisCacheHelper.leftPush(KEY_TASK, redisCacheHelper.newKey(KEY_TASK));
+        try {
+            Thread.sleep(16000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        this.redisCacheHelper.rightPop(KEY_TASK);
         // 查询key
         String key = FmtUtils.fmtMsg(KEY_PATTERN, SysDefaults.minusDays(1, SYS_DEFAULT_DAY_PATTERN));
         this.deleteByPattern(key);
