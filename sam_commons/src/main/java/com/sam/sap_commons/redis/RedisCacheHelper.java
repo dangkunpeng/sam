@@ -65,6 +65,9 @@ public class RedisCacheHelper {
     public static Object rightPop(String key) {
         return stringRedisTemplate.opsForList().rightPop(key);
     }
+    public static Long listSize(String key) {
+        return stringRedisTemplate.opsForList().size(key);
+    }
 
     public static String newKey(String id) {
         // 这里可以调用 KeyTool 来生成主键
