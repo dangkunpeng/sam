@@ -6,7 +6,6 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +20,6 @@ public class TaskCleanCacheKey {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-
-    @Async
     @Scheduled(cron = "0 0 * * * ?")
     public void run() {
         // 查询key
