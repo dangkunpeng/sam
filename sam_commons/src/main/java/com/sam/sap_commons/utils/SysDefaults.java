@@ -23,9 +23,12 @@ public class SysDefaults {
         return minusDays(0, SysDefaults.SYS_DEFAULT_DATETIME_PATTERN);
     }
     public static String nowDay() {
-        return minusDays(0, SysDefaults.SYS_DEFAULT_DAY_PATTERN);
+        return minusDays(0);
     }
 
+    public static String minusDays(long days) {
+        return minusDays(days, SYS_DEFAULT_DAY_PATTERN);
+    }
     public static String minusDays(long days, String datePattern) {
         return LocalDateTime.now().minusDays(days).format(DateTimeFormatter.ofPattern(datePattern));
     }
