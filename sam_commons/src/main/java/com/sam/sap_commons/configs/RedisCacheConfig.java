@@ -31,7 +31,7 @@ public class RedisCacheConfig {
 
     public RedisCacheConfiguration redisCacheConfiguration() {
         return RedisCacheConfiguration.defaultCacheConfig()
-                .prefixCacheNameWith("Cache-of-" + appName + "-") // 缓存前缀
+                .prefixCacheNameWith("CacheOf" + appName) // 缓存前缀
                 .entryTtl(Duration.ofHours(12))  // 默认TTL
                 .disableCachingNullValues()        // 不缓存null值
                 .serializeKeysWith(

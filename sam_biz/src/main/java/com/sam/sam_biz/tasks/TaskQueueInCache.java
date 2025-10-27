@@ -12,14 +12,14 @@ public class TaskQueueInCache {
     private static final String KEY_TASK = "TaskCleanCache";
 
     @Async
-    @Scheduled(cron = "0/2 * * * * ?")
+    @Scheduled(cron = "0 0 0/1 * * ?")
     public void run() {
         String key = RedisCacheHelper.newKey(KEY_TASK);
         RedisCacheHelper.leftPush(KEY_TASK, key);
         log.info("task {} started, size = {}", Thread.currentThread().getName(), RedisCacheHelper.listSize(KEY_TASK));
     }
 
-    @Scheduled(cron = "0/3 * * * * ?")
+    @Scheduled(cron = "0 0 0/1 * * ?")
     public void execute() {
         RedisCacheHelper.rightPop(KEY_TASK);
         log.info("task {} done, size = {}", Thread.currentThread().getName(), RedisCacheHelper.listSize(KEY_TASK));
