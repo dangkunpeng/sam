@@ -20,14 +20,7 @@ public class RedisInit implements ApplicationRunner {
         for (int i = 0; i < 10; i++) {
             String key = RedisCacheHelper.newKey("key");
             String val = RedisCacheHelper.newKey("val");
-            log.info("RedisInit key={}, val={}", key, val);
-        }
-        String key = RedisCacheHelper.newKey("mqKey");
-        for (int i = 0; i < 10; i++) {
-
-            String val = RedisCacheHelper.newKey("mqVal");
             RedisCacheHelper.leftPush(key, val);
-            log.info("mq key={}, val={}", key, RedisCacheHelper.rightPop(key));
         }
     }
 

@@ -11,9 +11,9 @@ import static com.sam.sap_commons.utils.SysDefaults.CACHE_NAME;
 @Service
 public class CacheDemo {
 
-    @Cacheable(value = CACHE_NAME, key = "'helloCache-'+#key", unless = "#result==null")
+    @Cacheable(value = CACHE_NAME, key = " 'CACHE_NAME-' + #root.methodName + '-' + #key", unless = "#result==null")
     public String getCacheKey(String key) {
-        log.info("No cache and  gen new key={}",key);
+        log.info("No cache and  gen new key={}", key);
         return RedisCacheHelper.newKey(key);
     }
 }
