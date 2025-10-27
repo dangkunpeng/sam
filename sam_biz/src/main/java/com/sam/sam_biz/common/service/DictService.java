@@ -34,7 +34,7 @@ public class DictService {
      * @param language
      * @return
      */
-    @Cacheable(value = CACHE_NAME, key = "'mstDict-typeKey' + #typeKey + '-language' + #language+'-deleteFlag'+ #deleteFlag", unless = "#result==null")
+    @Cacheable(value = {CACHE_NAME, "Dict"}, key = "'mstDict-typeKey' + #typeKey + '-language' + #language+'-deleteFlag'+ #deleteFlag", unless = "#result==null")
     public List<DictBean> getMstDict(String typeKey, String language, String deleteFlag) {
 
         List<DictBean> result = Lists.newArrayList();

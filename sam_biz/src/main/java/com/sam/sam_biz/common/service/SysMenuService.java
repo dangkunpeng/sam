@@ -26,7 +26,7 @@ public class SysMenuService {
     @Value("${spring.application.name}")
     private String appName;
 
-    @Cacheable(value = CACHE_NAME, key = "'dbMenu-' + #parentId", unless = "#result==null")
+    @Cacheable(value = {CACHE_NAME, "Menu"}, key = "'dbMenu-' + #parentId", unless = "#result==null")
     public List<SysMenu> getMenus() {
         return this.sysMenuMapper.getMenus(SysMenu.builder().appName(appName).build());
     }

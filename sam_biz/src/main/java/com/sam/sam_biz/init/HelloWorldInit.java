@@ -24,7 +24,11 @@ public class HelloWorldInit implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("================ {} =================", helloworld);
-        log.info("CacheDemo={}",cacheDemo.getCacheKey("helloworld"));
-        log.info("CacheDemo={}",cacheDemo.getCacheKey("helloworld"));
+        log.info("CacheKey={}",cacheDemo.getCacheKey("helloworld"));
+        log.info("CacheKey={}",cacheDemo.getCacheKey("helloworld"));
+        log.info("DemoKey={}",cacheDemo.getDemoKey("helloworld"));
+        log.info("DemoKey={}",cacheDemo.getDemoKey("helloworld"));
+        log.info("CacheKey={}",cacheDemo.getCacheKey("helloworld"));
+        log.info("DemoKey={}",cacheDemo.getDemoKey("helloworld"));
     }
 }
