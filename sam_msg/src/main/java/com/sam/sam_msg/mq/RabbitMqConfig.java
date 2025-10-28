@@ -59,7 +59,7 @@ public class RabbitMqConfig {
     // 死信队列
     @Bean
     public Queue dlxQueue() {
-        return new Queue(DLX_QUEUE, true);
+        return QueueBuilder.durable(DLX_QUEUE).build();
     }
 
     // 绑定死信队列
