@@ -56,7 +56,7 @@ public class BookAuthorInit implements ApplicationRunner {
             }
 
         });
-        this.authorRepository.saveAll(authorList);
-        this.bookRepository.saveAll(bookList);
+//        this.authorRepository.saveAll(authorList);
+//        this.bookRepository.saveAll(bookList);
     }
 }
