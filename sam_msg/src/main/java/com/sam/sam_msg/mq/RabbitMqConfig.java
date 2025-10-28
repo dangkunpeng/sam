@@ -18,17 +18,25 @@ import java.util.Map;
 @Component
 public class RabbitMqConfig {
     private static final String DLX_EXCHANGE = "dlx.exchange";
-    private static final String DLX_QUEUE = "dlx.queue";
+    public static final String DLX_QUEUE = "dlx.queue";
     public static final String DLX_ROUTING_KEY = "dlx.routing.key";
 
     @Bean
     public Queue mqMain() {
-        return new Queue(SysDefaults.MQ_MAIN);
+        return QueueBuilder
+                .durable(SysDefaults.MQ_MAIN)
+                .deadLetterExchange(DLX_EXCHANGE)
+                .deadLetterRoutingKey(DLX_ROUTING_KEY)
+                .build();
     }
 
     @Bean
     public Queue mqMail() {
-        return new Queue(SysDefaults.MQ_MAIL);
+        return QueueBuilder
+                .durable(SysDefaults.MQ_MAIL)
+                .deadLetterExchange(DLX_EXCHANGE)
+                .deadLetterRoutingKey(DLX_ROUTING_KEY)
+                .build();
     }
 
 
@@ -65,20 +73,22 @@ public class RabbitMqConfig {
     // 业务队列1 - 带TTL
     @Bean
     public Queue businessQueueWithTTL() {
-        Map<String, Object> args = new HashMap<>();
-        args.put("x-dead-letter-exchange", DLX_EXCHANGE);
-        args.put("x-dead-letter-routing-key", DLX_ROUTING_KEY);
-        args.put("x-message-ttl", 60000); // 60秒TTL
-        return new Queue("business.queue.ttl", true, false, false, args);
+        return QueueBuilder
+                .durable("business.queue.ttl")
+                .deadLetterExchange(DLX_EXCHANGE)
+                .deadLetterRoutingKey(DLX_ROUTING_KEY)
+                .ttl(6000)
+                .build();
     }
 
     // 业务队列2 - 带最大长度
     @Bean
     public Queue businessQueueWithMaxLength() {
-        Map<String, Object> args = new HashMap<>();
-        args.put("x-dead-letter-exchange", DLX_EXCHANGE);
-        args.put("x-dead-letter-routing-key", DLX_ROUTING_KEY);
-        args.put("x-max-length", 10); // 最大10条消息
-        return new Queue("business.queue.maxlength", true, false, false, args);
+        return QueueBuilder
+                .durable("business.queue.maxlength")
+                .deadLetterExchange(DLX_EXCHANGE)
+                .deadLetterRoutingKey(DLX_ROUTING_KEY)
+                .maxLength(10)
+                .build();
     }
 }
