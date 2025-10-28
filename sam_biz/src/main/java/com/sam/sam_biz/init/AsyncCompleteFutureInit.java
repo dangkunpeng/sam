@@ -1,7 +1,6 @@
 package com.sam.sam_biz.init;
 
 import com.google.common.collect.Lists;
-import com.sam.sam_biz.common.bean.DictBean;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -15,7 +14,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 @Order(100)
 @Slf4j
 @Component
