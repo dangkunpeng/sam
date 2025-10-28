@@ -1,6 +1,5 @@
 package com.sam.sam_biz.init;
 
-import com.sam.sap_commons.redis.RedisCacheHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
