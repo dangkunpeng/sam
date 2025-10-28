@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 @Order(100)
 @Slf4j
 @Component
@@ -21,8 +18,6 @@ public class AsyncCompleteFutureInit implements ApplicationRunner {
 
     @Resource
     private AsyncService asyncService;
-    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 1000,
-            300, TimeUnit.SECONDS, new ArrayBlockingQueue<>(2000));
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
