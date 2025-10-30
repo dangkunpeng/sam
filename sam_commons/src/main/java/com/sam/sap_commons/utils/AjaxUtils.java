@@ -2,7 +2,6 @@ package com.sam.sap_commons.utils;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sam.sap_commons.redis.RedisCacheHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
@@ -48,7 +47,7 @@ public class AjaxUtils {
     }
 
     public static void putTraceId() {
-        putTraceId(RedisCacheHelper.newKey(SysDefaults.TRACE_ID));
+        putTraceId(RedisHelper.newKey(SysDefaults.TRACE_ID));
     }
 
     public static void putTraceId(String traceId) {

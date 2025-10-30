@@ -5,7 +5,7 @@ import com.sam.sam_biz.db.entity.Author;
 import com.sam.sam_biz.db.entity.Book;
 import com.sam.sam_biz.db.repository.AuthorRepository;
 import com.sam.sam_biz.db.repository.BookRepository;
-import com.sam.sap_commons.redis.RedisCacheHelper;
+import com.sam.sap_commons.utils.RedisHelper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -31,8 +31,8 @@ public class BookAuthorInit implements ApplicationRunner {
         List<Author> authorList = Lists.newArrayList();
         for (int i = 0; i < 10; i++) {
             Author author = Author.builder()
-                    .authorId(RedisCacheHelper.newKey("author"))
-                    .name(RedisCacheHelper.newKey("name"))
+                    .authorId(RedisHelper.newKey("author"))
+                    .name(RedisHelper.newKey("name"))
                     .nationality("PRC")
                     .birthday("19860918")
                     .build();
@@ -44,10 +44,10 @@ public class BookAuthorInit implements ApplicationRunner {
             for (int i = 0; i < counter; i++) {
                 Book book = Book.builder()
                         .authorId(author.getAuthorId())
-                        .bookId(RedisCacheHelper.newKey("book"))
-                        .title(RedisCacheHelper.newKey("title"))
-                        .desc(RedisCacheHelper.newKey("desc"))
-                        .isbn(RedisCacheHelper.newKey("isbn"))
+                        .bookId(RedisHelper.newKey("book"))
+                        .title(RedisHelper.newKey("title"))
+                        .desc(RedisHelper.newKey("desc"))
+                        .isbn(RedisHelper.newKey("isbn"))
                         .price(ThreadLocalRandom.current().nextDouble(100,10000))
                         .pageCount(ThreadLocalRandom.current().nextInt(100, 200))
                         .publishYear(String.valueOf(ThreadLocalRandom.current().nextInt(1949,1999)))

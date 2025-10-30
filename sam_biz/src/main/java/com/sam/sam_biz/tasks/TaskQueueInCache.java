@@ -1,6 +1,6 @@
 package com.sam.sam_biz.tasks;
 
-import com.sam.sap_commons.redis.RedisCacheHelper;
+import com.sam.sap_commons.utils.RedisHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,15 +14,15 @@ public class TaskQueueInCache {
     @Async
     @Scheduled(cron = "0 0 0/1 * * ?")
     public void run() {
-        String key = RedisCacheHelper.newKey(KEY_TASK);
-        RedisCacheHelper.leftPush(KEY_TASK, key);
-        log.info("task {} started, size = {}", Thread.currentThread().getName(), RedisCacheHelper.listSize(KEY_TASK));
+        String key = RedisHelper.newKey(KEY_TASK);
+        RedisHelper.leftPush(KEY_TASK, key);
+        log.info("task {} started, size = {}", Thread.currentThread().getName(), RedisHelper.listSize(KEY_TASK));
     }
 
     @Scheduled(cron = "0 0 0/1 * * ?")
     public void execute() {
-        RedisCacheHelper.rightPop(KEY_TASK);
-        log.info("task {} done, size = {}", Thread.currentThread().getName(), RedisCacheHelper.listSize(KEY_TASK));
+        RedisHelper.rightPop(KEY_TASK);
+        log.info("task {} done, size = {}", Thread.currentThread().getName(), RedisHelper.listSize(KEY_TASK));
 
     }
 }

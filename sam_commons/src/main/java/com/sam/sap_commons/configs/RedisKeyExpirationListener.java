@@ -1,13 +1,11 @@
 package com.sam.sap_commons.configs;
 
-import com.sam.sap_commons.redis.RedisCacheHelper;
+import com.sam.sap_commons.utils.RedisHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.KeyExpirationEventMessageListener;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Component;
-
-import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @Component
@@ -21,8 +19,8 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
     public void onMessage(Message message, byte[] pattern) {
         String expiredKey = message.toString();
         String value = "";
-        if (RedisCacheHelper.hasKey(expiredKey)) {
-            value = RedisCacheHelper.get(expiredKey, String.class);
+        if (RedisHelper.hasKey(expiredKey)) {
+            value = RedisHelper.get(expiredKey, String.class);
         }
         log.info("过期:Key={}, pattern={}", expiredKey, value);
     }
