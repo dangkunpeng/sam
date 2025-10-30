@@ -1,7 +1,5 @@
-package com.sam.sap_commons.redis;
+package com.sam.sap_commons.utils;
 
-import com.sam.sap_commons.utils.JsonUtil;
-import com.sam.sap_commons.utils.SysDefaults;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -14,14 +12,14 @@ import static com.sam.sap_commons.utils.SysDefaults.COUNT_LENGTH;
 import static com.sam.sap_commons.utils.SysDefaults.PAD_CHAR;
 
 @Service
-public class RedisCacheHelper {
+public class RedisHelper {
 
     private static final long KEY_EXPIRE_MINUTES = 12 * 60;
     private static StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     public void setStringRedisTemplate(StringRedisTemplate stringRedisTemplate) {
-        RedisCacheHelper.stringRedisTemplate = stringRedisTemplate;
+        RedisHelper.stringRedisTemplate = stringRedisTemplate;
     }
 
     // 设置缓存（带过期时间）
