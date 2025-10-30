@@ -35,7 +35,7 @@ public class RedisCacheHelper {
     }
 
     // 获取缓存（解决缓存穿透：缓存空值）
-    public <T> T get(String key, Class<T> type) {
+    public static <T> T get(String key, Class<T> type) {
         String json = stringRedisTemplate.opsForValue().get(key);
         if (StringUtils.isBlank(json)) {
             // 判断是否为缓存的空值（防止缓存穿透）
