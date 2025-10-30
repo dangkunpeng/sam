@@ -14,7 +14,7 @@ import static com.sam.sap_commons.utils.SysDefaults.PAD_CHAR;
 @Service
 public class RedisHelper {
 
-    private static final long KEY_EXPIRE_MINUTES = 60 * 1;
+    private static final long KEY_EXPIRE_MINUTES = 60 * 12;
     private static StringRedisTemplate stringRedisTemplate;
 
     @Autowired
