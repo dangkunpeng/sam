@@ -35,12 +35,12 @@ public class MyGlobalConfig {
         if (StringUtils.isBlank(UserUtil.getUserName())) {
             return;
         }
+        model.addAttribute("env", env);
         // 应用名
         model.addAttribute("appName", appName);
-        model.addAttribute("currentUser", UserUtil.getUser());
-        model.addAttribute("env", env);
         // 版本信息
         model.addAttribute("appVersion", appVersion);
+        model.addAttribute("currentUser", UserUtil.getUser());
         // 获取菜单
         model.addAttribute("sysMenus", this.sysMenuApi.getAllMenus(UserUtil.getUserId()));
         // 分页信息
