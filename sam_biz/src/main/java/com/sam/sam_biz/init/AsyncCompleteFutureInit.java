@@ -33,7 +33,6 @@ public class AsyncCompleteFutureInit implements ApplicationRunner {
         allFutures.join();
         Integer result = completableFuture.stream().map(CompletableFuture::join).mapToInt(Integer::intValue).sum();
         stopWatch.stop();
-        log.info("result = {}", result);
-        log.info("stopWatch = {}", stopWatch.prettyPrint());
+        log.info("all task costs = {} , stopWatch = {}", result, stopWatch.prettyPrint());
     }
 }

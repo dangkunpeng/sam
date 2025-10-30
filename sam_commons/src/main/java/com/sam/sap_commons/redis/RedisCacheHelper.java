@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 import static com.sam.sap_commons.utils.SysDefaults.COUNT_LENGTH;
@@ -14,6 +15,8 @@ import static com.sam.sap_commons.utils.SysDefaults.PAD_CHAR;
 
 @Service
 public class RedisCacheHelper {
+
+    private static final long KEY_EXPIRE_MINUTES = 12 * 60;
     private static StringRedisTemplate stringRedisTemplate;
 
     @Autowired
@@ -23,12 +26,12 @@ public class RedisCacheHelper {
 
     // 设置缓存（带过期时间）
     public static <T> void set(String key, T value) {
-        set(key, value, 12, TimeUnit.HOURS);
+        set(key, value, KEY_EXPIRE_MINUTES);
     }
 
     // 设置缓存（带过期时间）
-    public static <T> void set(String key, T value, long time, TimeUnit unit) {
-        stringRedisTemplate.opsForValue().set(key, JsonUtil.toJsonString(value), time, unit);
+    public static <T> void set(String key, T value, long minutes) {
+        stringRedisTemplate.opsForValue().set(key, JsonUtil.toJsonString(value), minutes + ThreadLocalRandom.current().nextInt(1, 10), TimeUnit.MINUTES);
     }
 
     // 获取缓存（解决缓存穿透：缓存空值）
@@ -52,6 +55,14 @@ public class RedisCacheHelper {
         return stringRedisTemplate.hasKey(key);
     }
 
+    public static Boolean expire(String key) {
+        return expire(key, KEY_EXPIRE_MINUTES);
+    }
+
+    public static Boolean expire(String key, long minutes) {
+        return stringRedisTemplate.expire(key, minutes * 60 + ThreadLocalRandom.current().nextInt(1, 10), TimeUnit.SECONDS);
+    }
+
     /**
      * leftPush 和 rightPop 可以实现一个简单的队列
      *
@@ -60,11 +71,13 @@ public class RedisCacheHelper {
      */
     public static void leftPush(String key, String value) {
         stringRedisTemplate.opsForList().leftPush(key, value);
+        expire(key);
     }
 
     public static Object rightPop(String key) {
         return stringRedisTemplate.opsForList().rightPop(key);
     }
+
     public static Long listSize(String key) {
         return stringRedisTemplate.opsForList().size(key);
     }
@@ -77,6 +90,7 @@ public class RedisCacheHelper {
         result.append(SysDefaults.nowDay());
         // 获取时间戳的使用次数
         Long counter = stringRedisTemplate.opsForValue().increment(result.toString());
+        expire(result.toString(), KEY_EXPIRE_MINUTES + KEY_EXPIRE_MINUTES);
         // 拼接上序号
         result.append(StringUtils.leftPad(String.valueOf(counter), COUNT_LENGTH, PAD_CHAR));
         return result.toString();
