@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
@@ -19,6 +20,7 @@ public class AsyncCompleteFutureInit implements ApplicationRunner {
     @Resource
     private AsyncService asyncService;
 
+    @Async
     @Override
     public void run(ApplicationArguments args) throws Exception {
         List<CompletableFuture<Integer>> completableFuture = Lists.newArrayList();

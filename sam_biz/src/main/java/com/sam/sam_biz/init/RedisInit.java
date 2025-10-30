@@ -16,7 +16,6 @@ public class RedisInit implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        log.info("================ {} =================", "helloworld");
         for (int i = 0; i < 10; i++) {
             String key = RedisHelper.newKey("key");
             String val = RedisHelper.newKey("val");
