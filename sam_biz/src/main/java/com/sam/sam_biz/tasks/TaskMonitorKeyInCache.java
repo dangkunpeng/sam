@@ -44,6 +44,7 @@ public class TaskMonitorKeyInCache {
                     }
                     continue;
                 }
+                log.info("key {} expiring in {} seconds", key, ttl);
                 try {
                     String val = stringRedisTemplate.opsForValue().get(key);
                     log.info("ExpiringKeyInCache:key={},val={}", key, val);
