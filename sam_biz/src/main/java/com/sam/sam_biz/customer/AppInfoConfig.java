@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "sam.app")
-public class SamAppConfig {
+@ConfigurationProperties(prefix = "app.info")
+public class AppInfoConfig {
 
     private String version;
 

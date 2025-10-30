@@ -1,6 +1,6 @@
 package com.sam.sam_biz.init;
 
-import com.sam.sam_biz.customer.SamAppConfig;
+import com.sam.sam_biz.customer.AppInfoConfig;
 import com.sam.sam_biz.demo.CacheDemo;
 import com.sam.sap_commons.utils.JsonUtil;
 import jakarta.annotation.Resource;
@@ -20,7 +20,7 @@ public class HelloWorldInit implements ApplicationRunner {
     private String helloworld;
 
     @Autowired
-    private SamAppConfig samAppConfig;
+    private AppInfoConfig appInfoConfig;
 
     @Resource
     private CacheDemo cacheDemo;
@@ -28,7 +28,7 @@ public class HelloWorldInit implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("================ {} =================", helloworld);
-        log.info("samAppConfig={}", JsonUtil.toJsonString(samAppConfig));
+        log.info("appInfoConfig={}", JsonUtil.toJsonString(appInfoConfig));
 //        log.info("CacheKey={}",cacheDemo.getCacheKey("helloworld"));
 //        log.info("CacheKey={}",cacheDemo.getCacheKey("helloworld"));
 //        log.info("DemoKey={}",cacheDemo.getDemoKey("helloworld"));
