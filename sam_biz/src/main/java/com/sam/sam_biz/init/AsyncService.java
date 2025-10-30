@@ -15,8 +15,7 @@ public class AsyncService {
     public CompletableFuture<Integer> run() {
         Integer sleeps = ThreadLocalRandom.current().nextInt(300, 3000);
         try {
-
-            log.info("sleeps = {}", sleeps);
+//            log.info("sleeps = {}", sleeps);
             Thread.sleep(sleeps);
         } catch (InterruptedException e) {
             log.info("InterruptedException = {}", e.getMessage());

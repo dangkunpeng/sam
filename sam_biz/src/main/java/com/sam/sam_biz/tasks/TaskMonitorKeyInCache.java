@@ -31,18 +31,27 @@ public class TaskMonitorKeyInCache {
     public void monitorExpiringKeyInCache() {
         // 使用SCAN命令查找不包含"20251027"的键
         String today = SysDefaults.minusDays(0);
-        Set<String> expiredKeys = new HashSet<>();
-        ScanOptions scanOptions = ScanOptions.scanOptions().match("*" + StringUtils.substring(today, 0, 4)).count(100).build();
+        ScanOptions scanOptions = ScanOptions.scanOptions().match("*").count(100).build();
         // 遍历处理
         try (Cursor<String> cursor = stringRedisTemplate.scan(scanOptions)) {
             while (cursor.hasNext()) {
                 String key = cursor.next();
                 Long ttl = stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
-                if (ttl >= 10) {
+
+                if (ttl > 10) {
+                    if (ttl < 20) {
+                        log.info("key {} expiring in {} seconds", key, ttl);
+                    }
                     continue;
                 }
-                String val = stringRedisTemplate.opsForValue().get(key);
-                log.info("ExpiringKeyInCache:key={},val={}", key, val);
+                try {
+                    String val = stringRedisTemplate.opsForValue().get(key);
+                    log.info("ExpiringKeyInCache:key={},val={}", key, val);
+                } catch (Exception e) {
+                    String val = stringRedisTemplate.opsForList().getFirst(key);
+                    log.info("ExpiringKeyInCache:key={},val={}", key, val);
+                }
+
                 // 后续可以按业务处理
             }
         }

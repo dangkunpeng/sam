@@ -40,7 +40,7 @@ public class BookAuthorInit implements ApplicationRunner {
         }
         authorList.forEach(author -> {
             int counter = ThreadLocalRandom.current().nextInt(3, 20);
-            log.info("author ({}) has {} books", author.getName(), counter);
+//            log.info("author ({}) has {} books", author.getName(), counter);
             for (int i = 0; i < counter; i++) {
                 Book book = Book.builder()
                         .authorId(author.getAuthorId())

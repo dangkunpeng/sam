@@ -22,6 +22,6 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
         if (RedisHelper.hasKey(expiredKey)) {
             value = RedisHelper.get(expiredKey, String.class);
         }
-        log.info("过期:Key={}, pattern={}", expiredKey, value);
+//        log.info("过期:Key={}, pattern={}", expiredKey, value);
     }
 }
